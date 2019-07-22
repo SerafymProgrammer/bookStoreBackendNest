@@ -26,7 +26,7 @@ export class AuthController {
         id: userData.id,
         email: userData.email,
         };
-        const accessToken = {token: this.jwtService.sign(JSON.stringify(payload)), img: userData.img};
+        const accessToken = {userToken: this.jwtService.sign(JSON.stringify(payload)), img: userData.img};
         return accessToken;
 
     });
