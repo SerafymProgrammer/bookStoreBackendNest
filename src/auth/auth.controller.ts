@@ -22,16 +22,13 @@ export class AuthController {
         if (!isTruePassword) {
            return;
         }
-      //  ${userData.id}
         const payload = {isAdmin: userData.isAdmin,
         id: userData.id,
         email: userData.email,
         };
         const accessToken = {token: this.jwtService.sign(JSON.stringify(payload)), img: userData.img};
-        // tslint:disable-next-line:no-console
-        // console.log(typeof accessToken);
         return accessToken;
-        // tslint:disable-next-line:no-empty
+
     });
     }
 
