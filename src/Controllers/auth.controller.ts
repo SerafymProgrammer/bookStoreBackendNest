@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, Put, Delete, Param} from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { Users } from '../users/user.entity';
+import { AuthService } from '../Services/auth.service';
+import { Users } from '../models/user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 

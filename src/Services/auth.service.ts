@@ -1,11 +1,11 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getRepository } from 'typeorm';
-import { Users } from '../users/user.entity';
+import { Users } from '../models/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { throwError } from 'rxjs';
 // tslint:disable-next-line:import-spacing
-import { UsersService } from '../users/users.service';
+import { UsersService } from './users.service';
 import * as bcrypt from 'bcrypt';
 import jwtDecode = require('jwt-decode');
 import { async } from 'rxjs/internal/scheduler/async';

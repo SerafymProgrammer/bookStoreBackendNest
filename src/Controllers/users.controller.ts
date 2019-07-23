@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, Put, Delete, Param, UseGuards} from '@nestjs/common';
-import { UsersService } from './users.service';
-import { Users } from './user.entity';
+import { UsersService } from '../Services/users.service';
+import { Users } from '../models/user.entity';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
@@ -8,7 +8,7 @@ export class UsersController {
 
     constructor(private service: UsersService) { }
     @Get()
-    @UseGuards(AuthGuard('bearer'))
+   // @UseGuards(AuthGuard('bearer'))
     getAll() {
         return this.service.getUsers();
     }

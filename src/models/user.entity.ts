@@ -16,5 +16,5 @@ export class Users {
     isAdmin: boolean;
 
     @Column()
-    img: string;
+    img: string = '';
 }

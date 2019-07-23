@@ -1,19 +1,20 @@
 import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { AppController } from './Controllers/app.controller';
+import { AppService } from './Services/app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersController } from './users/users.controller';
-import { Users } from './users/user.entity';
-import { UsersService } from './users/users.service';
-import { LoggerMiddleware } from './logger.middleware';
-import { Books } from './books/books.entity';
-import { BooksService } from './books/books.service';
-import { BooksController } from './books/books.controller';
-import { PassportModule } from '@nestjs/passport';
+import { UsersController } from './Controllers/users.controller';
+import { Users } from './models/user.entity';
+import { UsersService } from './Services/users.service';
+import { LoggerMiddleware } from './common/logger.middleware';
+import { Books } from './models/books.entity';
+import { BooksService } from './Services/books.service';
+import { BooksController } from './Controllers/books.controller';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthService } from './auth/auth.service';
-import { AuthController } from './auth/auth.controller';
-import { HttpStrategy } from './http.strategy';
+import { AuthService } from './Services/auth.service';
+import { AuthController } from './Controllers/auth.controller';
+import { HttpStrategy } from './common/http.strategy';
+import { BookRepository } from './Repositories/books.repository';
+import { UsersRepository } from './Repositories/user.repository';
 
 @Module({
   imports: [
@@ -28,13 +29,13 @@ import { HttpStrategy } from './http.strategy';
       entities: [Users, Books],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Users, Books]),
+    TypeOrmModule.forFeature([Users, Books, UsersRepository]),
     JwtModule.register({
       secretOrPrivateKey: 'sss',
     }),
   ],
   controllers: [AppController, UsersController, BooksController, AuthController],
-  providers: [AppService, UsersService, BooksService, AuthService,  HttpStrategy],
+  providers: [AppService, UsersService, BooksService, AuthService,  HttpStrategy, BookRepository],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

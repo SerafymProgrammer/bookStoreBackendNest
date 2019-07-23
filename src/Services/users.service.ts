@@ -1,31 +1,30 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Users } from './user.entity';
-import { JwtService } from '@nestjs/jwt';
+import { Users } from '../models/user.entity';
 import * as bcrypt from 'bcrypt';
+import { UsersRepository } from '../Repositories/user.repository';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UsersService {
     private saltRounds = 10;
 
-    constructor(@InjectRepository(Users) private usersRepository: Repository<Users>) { }
+    constructor(@InjectRepository(UsersRepository)
+        private userRepository: UsersRepository) { }
 
     async getUsers(): Promise<Users[]> {
-        return await this.usersRepository.find();
+        return await this.userRepository.getUsers();
     }
 
     // tslint:disable-next-line:variable-name
     async getUser(_id: number): Promise<Users[]> {
-        return await this.usersRepository.find({
-            select: ['email', 'password', 'isAdmin'],
-            where: [{ id: _id }],
-        });
+        // tslint:disable-next-line:variable-name
+        const _users = await this.userRepository.getUser(_id);
+        return _users;
     }
 
     async createUser(user: Users) {
         // tslint:disable-next-line:variable-name
-        const _users =  await  this.usersRepository.find();
+        const _users =  await  this.getUsers();
         // tslint:disable-next-line:variable-name
         let _isAdmin = false;
 
@@ -43,15 +42,15 @@ export class UsersService {
         if (user.email === 'admin@gmail.com') {
             _isAdmin = true;
           }
-        return await this.usersRepository.insert( Object.assign(user, { isAdmin: _isAdmin }));
+        return await this.userRepository.createUser( Object.assign(user, { isAdmin: _isAdmin }));
     }
 
     // tslint:disable-next-line:variable-name
     async updateUser(_id: number, user: Users ) {
-        return await  this.usersRepository.update(_id, user );
+        return await  this.userRepository.updateUser(_id, user );
     }
 
     async deleteUser(user: Users) {
-        this.usersRepository.delete(user);
+        this.userRepository.deleteUser(user);
     }
 }
