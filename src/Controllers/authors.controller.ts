@@ -1,15 +1,15 @@
 import { Controller, Post, Body, Get, Put, Delete, Param} from '@nestjs/common';
 import { BooksService } from '../Services/books.service';
 import { Book } from '../models/books.entity';
+import { AuthorsService } from '../Services/authors.service';
 
-@Controller('books')
-export class BooksController {
+@Controller('authors')
+export class AuthorsController {
 
-    constructor(private service: BooksService) { }
+    constructor(private service: AuthorsService) { }
     @Get()
     getAll() {
-
-        return this.service.getBooks();
+        return this.service.findAllAuthors();
     }
 
     // @Get(':id')

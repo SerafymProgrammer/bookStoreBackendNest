@@ -1,34 +1,52 @@
-import { Injectable } from '@nestjs/common';
-import { Books } from '../models/books.entity';
+import { Injectable, Inject } from '@nestjs/common';
+import { Book } from '../models/books.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, EntityRepository } from 'typeorm';
+import { AuthorBook } from '../models/author-book.entity';
+import { Author } from '../models/authors.entity';
+
+// @EntityRepository(Book)
 
 @Injectable()
 export class BookRepository {
-    constructor(@InjectRepository(Books) private booksRepository: Repository<Books>) { }
+    constructor(@Inject('BOOKS_REPOSITORY') private booksRepository: typeof Book,
+                @Inject('AUTHORS_BOOKS_REPOSITORY') private authorBookRepository: typeof AuthorBook) {
 
-    async getBooks(): Promise<Books[]> {
-        return await this.booksRepository.find();
     }
 
-    // tslint:disable-next-line:variable-name
-    async getBook(_id: number): Promise<Books[]> {
-        return await this.booksRepository.find({
-            select: ['name', 'author', 'description', 'price', 'img'],
-            where: [{ id: _id }],
+    async getBooks(): Promise<Book[]> {
+        const authorBooks = await this.authorBookRepository.findAll<AuthorBook>({
+            include: [
+                Author,
+                Book,
+            ],
         });
+        const books = await this.booksRepository.findAll<Book>({
+            include: [
+                AuthorBook,
+            ],
+        });
+        return books;
     }
 
-    async createBook(book: Books) {
-        return await this.booksRepository.insert(book);
-    }
+    // // tslint:disable-next-line:variable-name
+    // async getBook(_id: number): Promise<Book[]> {
+    //     return await this.find(/*{
+    //         select: ['name', 'author', 'description', 'price', 'img'],
+    //         where: [{ id: _id }],
+    //     }*/);
+    // }
 
-    // tslint:disable-next-line:variable-name
-    async updateBook(_id: number, book: Books ) {
-      return await  this.booksRepository.update(_id, book );
-    }
+    // async createBook(book: Book) {
+    //     return await this.insert(book);
+    // }
 
-    async deleteBook(book: Books) {
-        this.booksRepository.delete(book);
-    }
+    // // tslint:disable-next-line:variable-name
+    // async updateBook(_id: number, book: Book) {
+    //   return await  this.update(_id, book );
+    // }
+
+    // async deleteBook(book: Book) {
+    //     this.delete(book);
+    // }
 }

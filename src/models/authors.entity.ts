@@ -1,8 +1,8 @@
 import { Table, Column, Model, PrimaryKey, AutoIncrement, HasMany } from 'sequelize-typescript';
-import { AuthorBook } from '../models/author-book.entity';
+import { AuthorBook } from './author-book.entity';
 
 @Table
-export class Book extends Model<Book> {
+export class Author extends Model<Author> {
   @PrimaryKey
   @AutoIncrement
   @Column
@@ -10,15 +10,6 @@ export class Book extends Model<Book> {
 
   @Column
   name: string;
-
-  @Column
-  description: string;
-
-  @Column
-  price: number;
-
-  @Column
-  img: string ;
 
   @HasMany(() => AuthorBook)
   authorBooks: AuthorBook[];
