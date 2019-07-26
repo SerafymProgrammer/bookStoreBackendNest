@@ -1,8 +1,8 @@
-import { AuthorBook } from '../models/author-book.entity';
+import { AuthorsBooks } from '../models/author-book.entity';
 
-export const authorBookProviders = [
+export const AuthorsBooksProviders = [
   {
     provide: 'AUTHORS_BOOKS_REPOSITORY',
-    useValue: AuthorBook,
+    useValue: AuthorsBooks,
   },
 ];

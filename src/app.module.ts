@@ -1,41 +1,48 @@
 import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
-import { AppController } from './Controllers/app.controller';
-import { AppService } from './Services/app.service';
-import { UsersController } from './Controllers/users.controller';
-import { UsersService } from './Services/users.service';
+import { AppController } from './controllers/app.controller';
+import { AppService } from './services/app.service';
+import { UsersController } from './controllers/users.controller';
+import { UsersService } from './services/users.service';
 import { LoggerMiddleware } from './common/logger.middleware';
-import { BooksService } from './Services/books.service';
-import { BooksController } from './Controllers/books.controller';
-import { AuthService } from './Services/auth.service';
-import { AuthController } from './Controllers/auth.controller';
+import { BooksService } from './services/books.service';
+import { BooksController } from './controllers/books.controller';
+import { AuthService } from './services/auth.service';
+import { AuthController } from './controllers/auth.controller';
 import { HttpStrategy } from './common/http.strategy';
-import { BookRepository } from './Repositories/books.repository';
-import { UsersRepository } from './Repositories/user.repository';
+import { BooksRepository } from './repositories/books.repository';
+import { UsersRepository } from './repositories/users.repository';
 import { databaseProviders } from './database.providers';
 import { authorsProviders } from './providers/authors.providers';
-import { AuthorsService } from './Services/authors.service';
+import { AuthorsService } from './services/authors.service';
 import { booksProviders } from './providers/books.providers';
-import { AuthorsController } from './Controllers/authors.controller';
+import { AuthorsController } from './controllers/authors.controller';
 import { usersProviders } from './providers/users.providers';
-import { authorBookProviders } from './providers/author-book.provider';
+import { AuthorsBooksProviders } from './providers/author-book.provider';
+import { AuthorsRepository } from './repositories/authors.repository';
 
 @Module({
   imports: [
   ],
   controllers: [AppController, UsersController, BooksController, AuthController, AuthorsController],
-  providers: [AppService,
+  providers: [
+    AppService,
     UsersService,
     BooksService,
     AuthService,
+    AuthorsService,
+
     HttpStrategy,
-    BookRepository,
+
+    BooksRepository,
+    UsersRepository,
+    AuthorsRepository,
+
     ...databaseProviders,
     ...authorsProviders,
-    AuthorsService,
-    UsersRepository,
     ...booksProviders,
     ...usersProviders,
-    ...authorBookProviders,
+    ...AuthorsBooksProviders,
+
   ],
 })
 export class AppModule implements NestModule {

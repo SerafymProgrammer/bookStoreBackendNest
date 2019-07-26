@@ -1,3 +1,3 @@
 ﻿Backend for bookStore
 
-Author: Serafym Malishev
+Authors: Serafym Malishev

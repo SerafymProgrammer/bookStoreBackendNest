@@ -1,9 +1,9 @@
 import { Sequelize } from 'sequelize-typescript';
 
-import { Author } from './models/authors.entity';
-import { Book } from './models/books.entity';
-import { AuthorBook } from './models/author-book.entity';
-import { Users } from './models/user.entity';
+import { Author} from './models/authors.entity';
+import { Book} from './models/books.entity';
+import { AuthorsBooks } from './models/author-book.entity';
+import { Users } from './models/users.entity';
 
 export const databaseProviders = [
   {
@@ -17,7 +17,7 @@ export const databaseProviders = [
         password: 'MySQLSerafym19',
         database: 'users',
       });
-      sequelize.addModels([Author, Book, AuthorBook, Users]);
+      sequelize.addModels([Book, AuthorsBooks, Users, Author]);
       await sequelize.sync();
       return sequelize;
     },

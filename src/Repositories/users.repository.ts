@@ -34,9 +34,9 @@
 // }
 
 import { Injectable, Inject } from '@nestjs/common';
-import { Book } from '../models/books.entity';
+import { Book} from '../models/books.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Users } from '../models/user.entity';
+import { Users } from '../models/users.entity';
 
 // @EntityRepository(Book)
 

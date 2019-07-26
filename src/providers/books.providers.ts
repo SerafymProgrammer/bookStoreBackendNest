@@ -1,8 +1,9 @@
-import { Book } from '../models/books.entity';
+import { Book} from '../models/books.entity';
+import { Books_Repository } from '../constants/constants';
 
 export const booksProviders = [
   {
-    provide: 'BOOKS_REPOSITORY',
+    provide: Books_Repository,
     useValue: Book,
   },
 ];

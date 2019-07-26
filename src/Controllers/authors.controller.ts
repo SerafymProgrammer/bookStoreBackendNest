@@ -1,7 +1,7 @@
 import { Controller, Post, Body, Get, Put, Delete, Param} from '@nestjs/common';
-import { BooksService } from '../Services/books.service';
+import { BooksService } from '../services/books.service';
 import { Book } from '../models/books.entity';
-import { AuthorsService } from '../Services/authors.service';
+import { AuthorsService } from '../services/Authors.service';
 
 @Controller('authors')
 export class AuthorsController {

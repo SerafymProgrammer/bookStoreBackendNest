@@ -1,34 +1,33 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Book } from '../models/books.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Author } from '../models/authors.entity';
+
+import { Author} from '../models/authors.entity';
 
 // @EntityRepository(Book)
 
 @Injectable()
-export class AuthorRepository {
-    constructor(@Inject('AUTHORS_REPOSITORY') private authorRepository: typeof Author) {
+export class AuthorsRepository {
+    constructor(@Inject('AUTHORS_REPOSITORY') private authorsRepository: typeof Author) {
     }
 
     async getAuthors(): Promise<Author[]> {
-        return await this.authorRepository.findAll<Author>();
+        return await this.authorsRepository.findAll<Author>();
     }
 
     // tslint:disable-next-line:variable-name
-    // async getAuthor(_id: number): Promise<Book[]> {
+    // async getAuthors(_id: number): Promise<Book[]> {
     //     return await this.findById( _id);
     // }
 
-    // async createAuthor(author: Author) {
-    //     return await this.insert(author);
+    // async createAuthors(Authors: Authors) {
+    //     return await this.insert(Authors);
     // }
 
     // // tslint:disable-next-line:variable-name
-    // async updateAuthor(_id: number, author: Author) {
-    //   return await  this.update(_id, author );
+    // async updateAuthors(_id: number, Authors: Authors) {
+    //   return await  this.update(_id, Authors );
     // }
 
-    // async deleteAuthor(book: Book) {
+    // async deleteAuthors(book: Book) {
     //     this.delete(book);
     // }
 }

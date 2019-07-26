@@ -3,21 +3,21 @@ import {Book} from './books.entity';
 import {Author} from './authors.entity';
 
 @Table
-export class AuthorBook extends Model<AuthorBook> {
+export class AuthorsBooks extends Model<AuthorsBooks> {
 
   @ForeignKey(() => Author)
   @PrimaryKey
   @Column
-  authorId: number;
+  AuthorsId: number;
 
   @ForeignKey(() => Book)
   @PrimaryKey
   @Column
-  bookId: number;
+  BooksId: number;
 
   @BelongsTo(() => Author)
-  author: Author;
+  Authors: Author;
 
   @BelongsTo(() => Book)
-  book: Book;
+  Books: Book;
 }

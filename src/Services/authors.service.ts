@@ -1,12 +1,14 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Author } from '../models/authors.entity';
+import { Author} from '../models/authors.entity';
+import { AuthorsRepository } from '../repositories/authors.repository';
 
 @Injectable()
 export class AuthorsService {
   constructor(
-    @Inject('AUTHORS_REPOSITORY') private readonly AUTHORS_REPOSITORY: typeof Author) {}
+    // tslint:disable-next-line:variable-name
+    private authorsRepository: AuthorsRepository) {}
 
   async findAllAuthors(): Promise<Author[]> {
-    return await this.AUTHORS_REPOSITORY.findAll<Author>();
+    return await this.authorsRepository.getAuthors();
   }
 }
