@@ -1,6 +1,6 @@
 import {Model, Table, PrimaryKey, Column, ForeignKey, BelongsTo} from 'sequelize-typescript';
-import {Book} from './books.entity';
-import {Author} from './authors.entity';
+import {Book} from './books.model';
+import {Author} from './authors.model';
 
 @Table
 export class AuthorsBooks extends Model<AuthorsBooks> {
@@ -16,8 +16,8 @@ export class AuthorsBooks extends Model<AuthorsBooks> {
   BooksId: number;
 
   @BelongsTo(() => Author)
-  Authors: Author;
+  Authors: Author[];
 
   @BelongsTo(() => Book)
-  Books: Book;
+  Books: Book[];
 }

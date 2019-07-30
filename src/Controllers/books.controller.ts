@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, Put, Delete, Param} from '@nestjs/common';
 import { BooksService } from '../services/books.service';
-import { Book } from '../models/books.entity';
+import { Book } from '../models/books.model';
 
 @Controller('books')
 export class BooksController {

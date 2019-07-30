@@ -1,7 +1,7 @@
 import { Table, Column, Model, PrimaryKey, AutoIncrement, BelongsToMany } from 'sequelize-typescript';
 
 @Table
-export class Users extends Model<Users> {
+export class User extends Model<User> {
   @PrimaryKey
   @AutoIncrement
   @Column

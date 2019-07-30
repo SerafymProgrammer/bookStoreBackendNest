@@ -1,6 +1,5 @@
 import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
-import { AppController } from './controllers/app.controller';
-import { AppService } from './services/app.service';
+
 import { UsersController } from './controllers/users.controller';
 import { UsersService } from './services/users.service';
 import { LoggerMiddleware } from './common/logger.middleware';
@@ -19,18 +18,21 @@ import { AuthorsController } from './controllers/authors.controller';
 import { usersProviders } from './providers/users.providers';
 import { AuthorsBooksProviders } from './providers/author-book.provider';
 import { AuthorsRepository } from './repositories/authors.repository';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
+    JwtModule.register({
+      secret: 'sdfaasad',
+    }),
   ],
-  controllers: [AppController, UsersController, BooksController, AuthController, AuthorsController],
+  controllers: [UsersController, BooksController, AuthController, AuthorsController],
   providers: [
-    AppService,
+
     UsersService,
     BooksService,
     AuthService,
     AuthorsService,
-
     HttpStrategy,
 
     BooksRepository,
@@ -49,9 +51,11 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggerMiddleware)
-      .forRoutes({ path: 'users', method: RequestMethod.ALL },
+      .forRoutes(
+        { path: 'users', method: RequestMethod.ALL },
         { path: 'books', method: RequestMethod.ALL },
         { path: 'auth', method: RequestMethod.ALL },
-        { path: 'authors', method: RequestMethod.ALL });
+        { path: 'authors', method: RequestMethod.ALL },
+        );
   }
 }

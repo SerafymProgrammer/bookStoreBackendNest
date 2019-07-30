@@ -1,4 +1,4 @@
-import { Book} from '../models/books.entity';
+import { Book} from '../models/books.model';
 import { Books_Repository } from '../constants/constants';
 
 export const booksProviders = [

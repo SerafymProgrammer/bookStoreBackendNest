@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Book} from '../models/books.entity';
+import { Book } from '../models/books.model';
 import { BooksRepository } from '../repositories/books.repository';
 
 @Injectable()
@@ -17,11 +17,11 @@ export class BooksService {
 
     async createBook(book: Book) {
         // tslint:disable-next-line:variable-name
-        const _books =  await  this.getBooks();
+        const _books = await this.getBooks();
         let count = 0;
         // tslint:disable-next-line:variable-name
         for (const _book of _books) {
-             if ((book.name === _book.name)) {
+            if ((book.name === _book.name)) {
                 count++;
             }
         }
@@ -33,8 +33,8 @@ export class BooksService {
     }
 
     // tslint:disable-next-line:variable-name
-    async updateBook(_id: number, book: Book ) {
-      return await  this.bookRepository.updateBook(_id, book );
+    async updateBook(_id: number, book: Book) {
+        return await this.bookRepository.updateBook(_id, book);
     }
 
     // tslint:disable-next-line:variable-name

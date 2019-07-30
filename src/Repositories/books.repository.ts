@@ -1,15 +1,12 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Book} from '../models/books.entity';
-import { AuthorsBooks } from '../models/author-book.entity';
-import { Author} from '../models/authors.entity';
-
-// @EntityRepository(Book)
+import { Book} from '../models/books.model';
+import { AuthorsBooks } from '../models/author-book.model';
+import { Author} from '../models/authors.model';
 
 @Injectable()
 export class BooksRepository {
     constructor(@Inject('BOOKS_REPOSITORY') private booksRepository: typeof Book,
                 @Inject('AUTHORS_BOOKS_REPOSITORY') private authorsBooksRepository: typeof AuthorsBooks) {
-
     }
 
     async getBooks(): Promise<any> {

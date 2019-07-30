@@ -1,8 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-
-import { Author} from '../models/authors.entity';
-
-// @EntityRepository(Book)
+import { Author} from '../models/authors.model';
 
 @Injectable()
 export class AuthorsRepository {
@@ -14,20 +11,25 @@ export class AuthorsRepository {
     }
 
     // tslint:disable-next-line:variable-name
-    // async getAuthors(_id: number): Promise<Book[]> {
-    //     return await this.findById( _id);
-    // }
+    async getAuthor(_id: number): Promise<Author> {
+        return await this.authorsRepository.findOne( {
+            where: { id: _id },
+        });
+    }
 
-    // async createAuthors(Authors: Authors) {
-    //     return await this.insert(Authors);
-    // }
+    async createAuthors(author: Author) {
+        return await this.authorsRepository.create(author);
+    }
 
     // // tslint:disable-next-line:variable-name
-    // async updateAuthors(_id: number, Authors: Authors) {
-    //   return await  this.update(_id, Authors );
-    // }
+    // tslint:disable-next-line:variable-name
+    async updateAuthors(_id: number, author: Author) {
+      return await  this.authorsRepository.update( author , {where: {id: _id}});
+    }
 
-    // async deleteAuthors(book: Book) {
-    //     this.delete(book);
-    // }
+    // tslint:disable-next-line:variable-name
+    async deleteAuthors(_id: number) {
+        this.authorsRepository.destroy({where: {id: _id}});
+    }
+
 }

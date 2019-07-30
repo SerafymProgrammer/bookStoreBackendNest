@@ -1,8 +1,9 @@
-import { Author } from '../models/authors.entity';
+import { Author } from '../models/authors.model';
+import { Authors_Repository } from '../constants/constants';
 
 export const authorsProviders = [
   {
-    provide: 'AUTHORS_REPOSITORY',
+    provide: Authors_Repository,
     useValue: Author,
   },
 ];

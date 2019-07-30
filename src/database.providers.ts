@@ -1,23 +1,17 @@
 import { Sequelize } from 'sequelize-typescript';
 
-import { Author} from './models/authors.entity';
-import { Book} from './models/books.entity';
-import { AuthorsBooks } from './models/author-book.entity';
-import { Users } from './models/users.entity';
+import { Author} from './models/authors.model';
+import { Book} from './models/books.model';
+import { AuthorsBooks } from './models/author-book.model';
+import { User } from './models/users.model';
+import { dataBaseInfoConnect } from './constants/constants';
 
 export const databaseProviders = [
   {
     provide: 'SEQUELIZE',
     useFactory: async () => {
-      const sequelize = new Sequelize({
-        dialect: 'mysql',
-        host: process.env.DB_HOST || 'localhost',
-        port: 3306,
-        username: 'root',
-        password: 'MySQLSerafym19',
-        database: 'users',
-      });
-      sequelize.addModels([Book, AuthorsBooks, Users, Author]);
+      const sequelize = new Sequelize(dataBaseInfoConnect);
+      sequelize.addModels([Book, AuthorsBooks, User, Author]);
       await sequelize.sync();
       return sequelize;
     },

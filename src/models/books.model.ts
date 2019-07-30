@@ -1,5 +1,5 @@
 import { Table, Column, Model, PrimaryKey, AutoIncrement, HasMany } from 'sequelize-typescript';
-import { AuthorsBooks } from './author-book.entity';
+import { AuthorsBooks } from './author-book.model';
 
 @Table
 export class Book extends Model<Book> {

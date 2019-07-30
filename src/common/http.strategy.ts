@@ -10,12 +10,11 @@ export class HttpStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(token: string) {
-    // const user = await this.authService.validateUserByToken(token);
-    // // tslint:disable-next-line:no-console
-    // console.log(user);
-    // if (!user) {
-    //   throw new UnauthorizedException();
-    // }
-    return /*user*/;
+    const user = await this.authService.validateUserByToken(token);
+
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+    return user;
   }
 }
